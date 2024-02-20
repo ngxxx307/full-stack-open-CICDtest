@@ -21,3 +21,8 @@ jobs:
         run: npm run build
       - name: Run Test
         run: npm run test
+      - name: Deploy to render.com
+        uses: sws2apps/render-deployment@main
+        serviceId: ${{ secrets.RENDER_SERVICE_ID }}
+        apiKey: ${{ secrets.RENDER_API_KEY }}
+        multipleDeployment: false
