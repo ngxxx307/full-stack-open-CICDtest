@@ -22,4 +22,4 @@ jobs:
       - name: Run Test
         run: npm run test
       - name: Trigger deployment
-        run: curl echo secrets.RENDER_SERVICE_ID; ${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+        run: echo secrets.RENDER_SERVICE_ID; curl ${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
