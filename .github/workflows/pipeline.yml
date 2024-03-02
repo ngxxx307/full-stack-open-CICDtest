@@ -56,4 +56,5 @@ jobs:
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
           JOIN_COMMIT_MESSAGES: ${{ toJson(join(github.event.commits.*.message, ', ')) }}
-        run: echo "$JOIN_COMMIT_MESSAGES"
+          BOOL_COMMIT_MESSAGES: ${{ contains(join(github.event.commits.*.message, ', '), 'test') }}
+        run: echo "$JOIN_COMMIT_MESSAGES"; echo "$BOOL_COMMIT_MESSAGES";
