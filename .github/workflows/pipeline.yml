@@ -36,25 +36,8 @@ jobs:
         with:
           node-version: '20'
       - name: Bump version and push tag
+        if: ${{ ! contains(join(github.event.commits.*.message, ', '), '#skip') }}
         uses: anothrNick/github-tag-action@1.64.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-  a_test_job:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: github context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: commits
-        env:
-          COMMITS: ${{ toJson(github.event.commits) }}
-        run: echo "$COMMITS"
-      - name: commit messages
-        env:
-          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-          JOIN_COMMIT_MESSAGES: ${{ toJson(join(github.event.commits.*.message, ', ')) }}
-          BOOL_COMMIT_MESSAGES: ${{ contains(join(github.event.commits.*.message, ', '), 'test') }}
-        run: echo "$JOIN_COMMIT_MESSAGES"; echo "$BOOL_COMMIT_MESSAGES";
